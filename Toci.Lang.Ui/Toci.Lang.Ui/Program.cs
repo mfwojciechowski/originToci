@@ -17,7 +17,7 @@ namespace Toci.Lang.Ui
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QuizMazur());
+            Application.Run(new Form1());
         }
     }
 }

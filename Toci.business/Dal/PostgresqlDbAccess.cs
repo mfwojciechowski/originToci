@@ -10,7 +10,7 @@ namespace Toci.business.Dal
 
         public PostgresqlDbAccess()
         {
-            Connect("User ID=postgres;Password=beatka;Host=localhost;Port=5432;Database=translator;");
+            Connect("User ID=postgres;Password=start1;Host=localhost;Port=5432;Database=translator;");
         }
 
         public override bool Connect(string connectionString)

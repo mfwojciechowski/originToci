@@ -7,6 +7,5 @@ namespace Toci.business.Quiz
     {
         public IQuizQuestion Question { get; set; }
         public List<IQuizAnswer> Answers { get; set; }
-        public List<IQuizAnswer> FakeAnswers { get; set; }
     }
 }

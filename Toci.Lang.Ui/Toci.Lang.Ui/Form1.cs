@@ -14,6 +14,7 @@ namespace Toci.Lang.Ui
 {
     public partial class Form1 : Form
     {
+        int score = 0;
         private TranslationDal dal = new TranslationDal();
 
         private ComboBox languageFromCombo;
@@ -22,6 +23,7 @@ namespace Toci.Lang.Ui
         private ComboBox quizQuizToLanguageCombo;
         private Button ListTranslations;
         private Button quizButton;
+        private Button selectButton;
         private List<Control> ControlsToRefresh = new List<Control>();
         private QuizLogic ql = new QuizLogic();
 
@@ -36,11 +38,11 @@ namespace Toci.Lang.Ui
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            //DataTable result = dal.GetTranslationsFromTo("pl", textBox1.Text);
+            DataTable result = dal.GetTranslationsFromTo("pl", textBox1.Text);
             //AddTranslationsLabels(result, "fromword","toword",20,62);
-            EfClassGenerator generator = new EfClassGenerator();
+           // EfClassGenerator generator = new EfClassGenerator();
 
-            generator.GenerateCode();
+            //generator.GenerateCode();
 
             ReflectionExample re = new ReflectionExample();
 
@@ -84,6 +86,8 @@ namespace Toci.Lang.Ui
                     
                     Controls.Add(b1);
 
+                    b1.Click += selectAnswerClick;
+
                 }
             }
            
@@ -91,9 +95,23 @@ namespace Toci.Lang.Ui
 
         private void selectAnswerClick(object sender, EventArgs e)
         {
+            foreach (Control control in ControlsToRefresh)
+            {
+                Controls.Remove(control);
+            }
+
+            ControlsToRefresh = new List<Control>();
+
+            
             QuizButton b = (QuizButton) sender;
-            //if (b.CorrectAnswer)
-            //    Label ls = ControlManager.
+            if (b.CorrectAnswer)
+            {
+                score++;
+                Label ls = ControlManager.CreateControl<Label>(100, 20, 730, 400, score.ToString());
+                ControlsToRefresh.Add(ls);
+                Controls.Add(ls);
+            }
+
         }
 
         private void AddTranslationsLabels(DataTable result, string lbFrom, string lbTo, int locationX, int locationY)
@@ -135,6 +153,7 @@ namespace Toci.Lang.Ui
 
             ListTranslations.Click += ButtonAcceptClick;
             quizButton.Click += quizButtonClick;
+            
 
             AddItemsToCombo(languageFromCombo, ApiTranslationProxy.languages);
             AddItemsToCombo(quizQuizFromLanguageCombo, ApiTranslationProxy.languages);

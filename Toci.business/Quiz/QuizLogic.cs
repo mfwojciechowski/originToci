@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using Toci.business.Dal;
 using Toci.business.Quiz.Interfaces;
@@ -10,7 +11,9 @@ namespace Toci.business.Quiz
 {
     public class QuizLogic : IQuizLogic
     {
+        Random x = new Random();
         TranslationDal TrDal = new TranslationDal();
+
         public List<IQuiz> GetQuiz(string fromLanguage, string toLanguage)
         {
             DataTable result = TrDal.GetTranslationsFromTo(fromLanguage, toLanguage);
@@ -32,7 +35,6 @@ namespace Toci.business.Quiz
 
             question.Question = new QuizQuestion();
             question.Answers = new List<IQuizAnswer>();
-            question.FakeAnswers = new List<IQuizAnswer>();
 
             question.Question.Word = row["fromword"].ToString();
             question.Answers.Add(new QuizAnswer(){IsCorrect = true, Word = row["toword"].ToString()});

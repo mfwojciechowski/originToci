@@ -8,6 +8,5 @@ namespace Toci.Business.Interfaces
 
         List<IQuizAnswer> Answers { get; set; }
 
-        List<IQuizAnswer> FakeAnswers { get; set; }
     }
 }
