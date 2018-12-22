@@ -81,7 +81,7 @@ namespace Toci.Lang.Ui
                 int j = 0;
                 foreach (var answer in quizQuestion.Answers)
                 {
-                    QuizButton b1 = ControlManager.CreateControl<QuizButton>(100, 20, 630 +(110 * ++j), 82 + (20 * i), answer.Word);
+                    QuizButton b1 = ControlManager.CreateControl<QuizButton>(100, 20, 730 +(110 * ++j), 82 + (20 * i), answer.Word);
                     b1.CorrectAnswer = answer.IsCorrect;
                     
                     Controls.Add(b1);
@@ -102,15 +102,25 @@ namespace Toci.Lang.Ui
 
             ControlsToRefresh = new List<Control>();
 
-            
+            Label ls = ControlManager.CreateControl<Label>(100, 20, 730, 400, score.ToString());
             QuizButton b = (QuizButton) sender;
             if (b.CorrectAnswer)
             {
                 score++;
-                Label ls = ControlManager.CreateControl<Label>(100, 20, 730, 400, score.ToString());
-                ControlsToRefresh.Add(ls);
                 Controls.Add(ls);
+
+                ControlsToRefresh.Add(ls);
+                b.CorrectAnswer = false;
             }
+            else if (b.CorrectAnswer == false)
+                {
+                    Controls.Add(ls);
+                    ControlsToRefresh.Add(ls);
+            }
+
+        
+            
+
 
         }
 
